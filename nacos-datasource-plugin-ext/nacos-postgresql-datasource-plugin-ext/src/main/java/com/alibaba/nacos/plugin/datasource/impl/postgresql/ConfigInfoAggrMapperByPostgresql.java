@@ -17,6 +17,7 @@
 package com.alibaba.nacos.plugin.datasource.impl.postgresql;
 
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
+import com.alibaba.nacos.plugin.datasource.enums.TrustedPostgresFunctionEnum;
 import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoAggrMapper;
 
 /**
@@ -26,10 +27,15 @@ import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoAggrMapper;
  **/
 
 public class ConfigInfoAggrMapperByPostgresql extends BaseConfigInfoAggrMapper {
-    
+
     @Override
     public String getDataSource() {
         return DatabaseTypeConstant.POSTGRESQL;
     }
-    
+
+
+    @Override
+    public String getFunction(String functionName) {
+        return TrustedPostgresFunctionEnum.getFunctionByName(functionName);
+    }
 }

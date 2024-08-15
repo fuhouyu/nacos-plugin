@@ -19,6 +19,7 @@ package com.alibaba.nacos.plugin.datasource.impl.postgresql;
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
+import com.alibaba.nacos.plugin.datasource.enums.TrustedPostgresFunctionEnum;
 import com.alibaba.nacos.plugin.datasource.impl.mysql.HistoryConfigInfoMapperByMySql;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
@@ -29,7 +30,7 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
  * @author Long Yu
  **/
 public class HistoryConfigInfoMapperByPostgresql extends HistoryConfigInfoMapperByMySql {
-    
+
     @Override
     public MapperResult removeConfigHistory(MapperContext context) {
         String sql = "WITH temp_table as (SELECT id FROM his_config_info WHERE gmt_modified < ? LIMIT ? ) "
@@ -37,10 +38,14 @@ public class HistoryConfigInfoMapperByPostgresql extends HistoryConfigInfoMapper
         return new MapperResult(sql, CollectionUtils.list(context.getWhereParameter(FieldConstant.START_TIME),
                 context.getWhereParameter(FieldConstant.LIMIT_SIZE)));
     }
-    
+
     @Override
     public String getDataSource() {
         return DatabaseTypeConstant.POSTGRESQL;
     }
-    
+
+    @Override
+    public String getFunction(String functionName) {
+        return TrustedPostgresFunctionEnum.getFunctionByName(functionName);
+    }
 }

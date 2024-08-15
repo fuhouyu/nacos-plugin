@@ -17,6 +17,7 @@
 package com.alibaba.nacos.plugin.datasource.impl.postgresql;
 
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
+import com.alibaba.nacos.plugin.datasource.enums.TrustedPostgresFunctionEnum;
 import com.alibaba.nacos.plugin.datasource.impl.base.BaseGroupCapacityMapper;
 
 /**
@@ -25,10 +26,14 @@ import com.alibaba.nacos.plugin.datasource.impl.base.BaseGroupCapacityMapper;
  * @author Long Yu
  **/
 public class GroupCapacityMapperByPostgresql extends BaseGroupCapacityMapper {
-    
+
     @Override
     public String getDataSource() {
         return DatabaseTypeConstant.POSTGRESQL;
     }
-    
+
+    @Override
+    public String getFunction(String functionName) {
+        return TrustedPostgresFunctionEnum.getFunctionByName(functionName);
+    }
 }

@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.nacos.plugin.datasource.impl.oracle;
 
+import com.alibaba.nacos.plugin.datasource.enums.TrustedOracleFunctionEnum;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantInfoMapper;
 
 /***
@@ -22,4 +24,8 @@ import com.alibaba.nacos.plugin.datasource.mapper.TenantInfoMapper;
  */
 public class TenantInfoMapperByOracle extends AbstractOracleMapper implements TenantInfoMapper {
 
+    @Override
+    public String getFunction(String functionName) {
+        return TrustedOracleFunctionEnum.getFunctionByName(functionName);
+    }
 }

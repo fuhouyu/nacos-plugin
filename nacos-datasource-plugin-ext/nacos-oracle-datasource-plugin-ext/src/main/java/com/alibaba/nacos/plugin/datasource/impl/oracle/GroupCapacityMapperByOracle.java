@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.alibaba.nacos.plugin.datasource.impl.oracle;
 
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
+import com.alibaba.nacos.plugin.datasource.enums.TrustedOracleFunctionEnum;
 import com.alibaba.nacos.plugin.datasource.mapper.GroupCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
@@ -25,13 +27,18 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
  * @author onewe
  */
 public class GroupCapacityMapperByOracle extends AbstractOracleMapper
-		implements GroupCapacityMapper {
+        implements GroupCapacityMapper {
 
-	@Override
-	public MapperResult selectGroupInfoBySize(MapperContext context) {
-		String sql = getDatabaseDialect().getLimitTopSqlWithMark(
-				"SELECT id, group_id FROM group_capacity WHERE id > ?");
-		return new MapperResult(sql, CollectionUtils.list(
-				context.getWhereParameter(FieldConstant.ID), context.getPageSize()));
-	}
+    @Override
+    public MapperResult selectGroupInfoBySize(MapperContext context) {
+        String sql = getDatabaseDialect().getLimitTopSqlWithMark(
+                "SELECT id, group_id FROM group_capacity WHERE id > ?");
+        return new MapperResult(sql, CollectionUtils.list(
+                context.getWhereParameter(FieldConstant.ID), context.getPageSize()));
+    }
+
+    @Override
+    public String getFunction(String functionName) {
+        return TrustedOracleFunctionEnum.getFunctionByName(functionName);
+    }
 }

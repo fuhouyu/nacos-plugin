@@ -25,6 +25,10 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
       - name: Maven install
         run: mvn clean install -DskipTests
 

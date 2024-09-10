@@ -13,6 +13,10 @@ jobs:
         database: [oracle,mssql,dm,postgresql]
         java: [8]
     steps:
+      - name: set version
+        id: version_set
+        run: |
+          echo "NACOS_VERSION=${GITHUB_REF#$'refs/tags/v'}" >> $GITHUB_ENV
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with:
@@ -46,11 +50,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: build
           platforms: linux/amd64,linux/arm64
           file: datasource-plugin-ext.Dockerfile
           push: true
-          tags: ${{ github.ref }}
-          labels: "Nacos ${{ github.ref }} "
+          tags: ${{ NACOS_VERSION }}
+          labels: "Nacos ${{ NACOS_VERSION }} "
           build-args: |
             DATASOURCE_PLUGIN=${{ matrix.database }}

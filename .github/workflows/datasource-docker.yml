@@ -53,7 +53,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           file: datasource-plugin-ext.Dockerfile
           push: true
-          tags: ${{ NACOS_VERSION }}
-          labels: "Nacos ${{ NACOS_VERSION }} "
+          tags: $NACOS_VERSION
+          labels: "Nacos $NACOS_VERSION "
           build-args: |
             DATASOURCE_PLUGIN=${{ matrix.database }}

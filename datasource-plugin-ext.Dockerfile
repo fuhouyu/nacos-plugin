@@ -5,8 +5,7 @@ ENV PLUGIN_HOME=/home/nacos/plugins
 ENV PLUGIN_EXT_BASE_HOME=nacos-datasource-plugin-ext
 ARG DATASOURCE_PLUGIN
 ADD . .
-RUN --mount=type=cache,target=~/.m2/repository \
-    mkdir $PLUGIN_HOME; \
+RUN mkdir $PLUGIN_HOME; \
     cp ./${PLUGIN_EXT_BASE_HOME}/${DATASOURCE_PLUGIN}/target/${DATASOURCE_PLUGIN}*.jar ${PLUGIN_HOME}/${DATASOURCE_PLUGIN}.jar
 
 # build Nacos

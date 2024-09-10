@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Get version
         id: get_version
-        run: echo ::set-output name=NACOS_VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo ::set-output name=NACOS_VERSION::${GITHUB_REF/refs\/tags\/v/}
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with:
@@ -51,7 +51,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           file: datasource-plugin-ext.Dockerfile
           push: true
-          tags: ${{ steps.get_version.outputs.NACOS_VERSION }}
-          labels: "Nacos ${{ steps.get_version.outputs.NACOS_VERSION }} "
+          tags: fuhouyu/nacos-server:${{ steps.get_version.outputs.NACOS_VERSION }}-${{ matrix.database }}
+          labels: "Nacos ${{ steps.get_version.outputs.NACOS_VERSION }} Datasource ${{ matrix.database }}"
           build-args: |
             DATASOURCE_PLUGIN=nacos-${{ matrix.database }}-datasource-plugin-ext

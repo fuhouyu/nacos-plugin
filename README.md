@@ -5,7 +5,7 @@ A collection of Nacos plug-ins that provide pluggable plug-in capabilities for N
 # 简介
 该仓库从[nacos-plugin](https://github.com/nacos-group/nacos-plugin) fork，主要为了处理数据源的适配。
 
-已构建好的docker镜像：[nacos-server-multiple-datasource](https://hub.docker.com/r/fuhouyu/nacos-server-multiple-datasource)
+已构建好的docker镜像：[nacos-server-multiple-datasource](https://hub.docker.com/r/fuhouyu/nacos-server)
 
 自dockerfile中进行构建：
 

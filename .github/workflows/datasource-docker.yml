@@ -56,4 +56,4 @@ jobs:
           tags: ${{ steps.get_version.outputs.NACOS_VERSION }}
           labels: "Nacos ${{ steps.get_version.outputs.NACOS_VERSION }} "
           build-args: |
-            DATASOURCE_PLUGIN=${{ matrix.database }}
+            DATASOURCE_PLUGIN=nacos-${{ matrix.database }}-datasource-plugin-ext

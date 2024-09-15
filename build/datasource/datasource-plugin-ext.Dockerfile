@@ -1,5 +1,5 @@
 # build plugin jar
-FROM maven:3.8.6-openjdk-8 as postgresPlugin
+FROM maven:3.8.6-openjdk-8 as datasourcePlugin
 WORKDIR  /home/nacos
 ENV PLUGIN_HOME=/home/nacos/plugins
 ENV PLUGIN_EXT_BASE_HOME=nacos-datasource-plugin-ext
@@ -16,7 +16,7 @@ LABEL description="Nacos Multiple Datasource"
 RUN apk add --no-cache openjdk8-jre-base curl iputils ncurses vim libcurl
 ARG NACOS_VERSION=2.4.2
 ARG DATASOURCE_PLUGIN
-COPY --from=postgresPlugin /home/nacos/plugins/${DATASOURCE_PLUGIN}.jar /home/nacos/plugins/${DATASOURCE_PLUGIN}.jar
+COPY --from=datasourcePlugin /home/nacos/plugins/${DATASOURCE_PLUGIN}.jar /home/nacos/plugins/${DATASOURCE_PLUGIN}.jar
 ENV DOWNLOAD_URL="https://github.com/alibaba/nacos/releases/download/${NACOS_VERSION}/nacos-server-${NACOS_VERSION}.tar.gz"
 # set environment
 ENV MODE="cluster" \
@@ -45,8 +45,8 @@ RUN \
 RUN wget $DOWNLOAD_URL -O nacos-server.tar.gz && tar -xvf nacos-server.tar.gz --strip-components=1 -C ./ && rm -rf *.gz;
 RUN mkdir -p logs 	&& touch logs/start.out 	&& ln -sf /dev/stdout start.out 	&& ln -sf /dev/stderr start.out
 
-ADD conf/application.properties conf/application.properties
-ADD bin/docker-startup.sh bin/docker-startup.sh
+ADD build/datasource/conf/application.properties conf/application.properties
+ADD build/datasource/bin/docker-startup.sh bin/docker-startup.sh
 RUN chmod +x bin/docker-startup.sh
 EXPOSE 8848
 ENTRYPOINT ["sh","bin/docker-startup.sh"]

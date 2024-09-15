@@ -3,15 +3,15 @@ name: Docker Build and Push
 on:
   push:
     tags:
-    - v*
+      - v*
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        database: [oracle,mssql,dm,postgresql]
-        java: [8]
+        database: [ oracle,mssql,dm,postgresql,kingbase, polardb ]
+        java: [ 8 ]
     steps:
       - name: Get version
         id: get_version
@@ -49,7 +49,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          file: datasource-plugin-ext.Dockerfile
+          file: build/datasource/datasource-plugin-ext.Dockerfile
           push: true
           tags: fuhouyu/nacos-server:${{ steps.get_version.outputs.NACOS_VERSION }}-${{ matrix.database }}
           labels: "Nacos ${{ steps.get_version.outputs.NACOS_VERSION }} Datasource ${{ matrix.database }}"

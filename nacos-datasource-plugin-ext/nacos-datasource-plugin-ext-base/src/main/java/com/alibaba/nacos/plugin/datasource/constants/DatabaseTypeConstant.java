@@ -25,6 +25,9 @@ public class DatabaseTypeConstant {
 
     public static final String POSTGRESQL = "postgresql";
 
+    public static final String KINGBASE = "kingbase";
+
+    public static final String POLARDB = "polardb";
 
     public static final String MYSQL = "mysql";
 

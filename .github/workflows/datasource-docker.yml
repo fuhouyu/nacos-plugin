@@ -43,7 +43,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -56,23 +55,13 @@ jobs:
           build-args: |
             DATASOURCE_PLUGIN=nacos-${{ matrix.database }}-datasource-plugin-ext 
             NACOS_VERSION=${{ steps.get_version.outputs.NACOS_VERSION }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Nacos Datasource Plugin Release ${{ github.ref }}
+          name: Nacos Datasource Plugin Release ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
           prerelease: false
-      # Upload JAR to Release
-      - name: Upload JAR to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar
-          asset_name: ${{ matrix.database }}-datasource-plugin.jar
-          asset_content_type: application/java-archive
+          files: |
+            nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar

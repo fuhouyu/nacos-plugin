@@ -64,4 +64,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar
+            nacos-datasource-plugin-ext/nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar

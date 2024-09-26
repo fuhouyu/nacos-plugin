@@ -55,13 +55,24 @@ jobs:
           build-args: |
             DATASOURCE_PLUGIN=nacos-${{ matrix.database }}-datasource-plugin-ext 
             NACOS_VERSION=${{ steps.get_version.outputs.NACOS_VERSION }}
+      # 构建Nacos tar包
+      - name: Build Release
+        run: |
+          wget https://github.com/alibaba/nacos/releases/download/${steps.get_version.outputs.NACOS_VERSION}/nacos-server-${steps.get_version.outputs.NACOS_VERSION}.tar.gz -O nacos-server-${{ matrix.database }}.tar.gz
+          mkdir nacos-server-${{ matrix.database }}
+          tar -xvf nacos-server-${{ matrix.database }}.tar.gz --strip-components=1 -C ./tmp/ && rm -rf *.tar.gz
+          cd nacos-server-${{ matrix.database }}
+          mkdir -p logs && touch logs/start.out
+          cp ../build/datasource/conf/application.properties conf/application.properties
+          cp ../build/datasource/bin/docker-startup.sh bin/docker-startup.sh
+          tar -cvzf ../nacos-server-${{ matrix.database }}.tar.gz ./
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: Nacos Datasource Plugin Release ${{ github.ref }}
+          name: Nacos Datasource Plugin v${{ steps.get_version.outputs.NACOS_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
           prerelease: false
           files: |
-            nacos-datasource-plugin-ext/nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar
+            nacos-server-${{ matrix.database }}.tar.gz

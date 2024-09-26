@@ -13,7 +13,7 @@ A collection of Nacos plug-ins that provide pluggable plug-in capabilities for N
 mvn clean install -DskipTests
 export DATASOURCE_TYPE=postgresql
 export TAG=test:0.0.1
-docker buildx build  --platform linux/amd64,linux/arm64 --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f datasource-plugin-ext.Dockerfile . --push
+docker buildx build  --platform linux/amd64,linux/arm64 --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f build/datasource/datasource-plugin-ext.Dockerfile . --push
 ```
 
 

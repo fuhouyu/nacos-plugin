@@ -63,8 +63,10 @@ jobs:
           tar -xvf nacos-server-${{ matrix.database }}.tar.gz --strip-components=1 -C ./nacos-server-${{ matrix.database }}/ && rm -rf *.tar.gz
           cd nacos-server-${{ matrix.database }}
           mkdir -p logs && touch logs/start.out
+          mkdir -p plugins
           cp ../build/datasource/conf/application.properties conf/application.properties
           cp ../build/datasource/bin/docker-startup.sh bin/docker-startup.sh
+          cp ../nacos-datasource-plugin-ext/nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar nacos-${{ matrix.database }}-datasource-plugin-ext*.jar
           tar -cvzf ../nacos-server-${{ matrix.database }}.tar.gz ./
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -76,3 +78,4 @@ jobs:
           prerelease: false
           files: |
             nacos-server-${{ matrix.database }}.tar.gz
+            nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar

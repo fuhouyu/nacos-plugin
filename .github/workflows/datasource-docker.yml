@@ -66,7 +66,7 @@ jobs:
           mkdir -p plugins
           cp ../build/datasource/conf/application.properties conf/application.properties
           cp ../build/datasource/bin/docker-startup.sh bin/docker-startup.sh
-          cp ../nacos-datasource-plugin-ext/nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar nacos-${{ matrix.database }}-datasource-plugin-ext*.jar
+          cp ../nacos-datasource-plugin-ext/nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar plugins/nacos-${{ matrix.database }}-datasource-plugin.jar
           tar -cvzf ../nacos-server-${{ matrix.database }}.tar.gz ./
       - name: Release
         uses: softprops/action-gh-release@v2

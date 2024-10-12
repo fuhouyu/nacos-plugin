@@ -78,4 +78,4 @@ jobs:
           prerelease: false
           files: |
             nacos-server-${{ matrix.database }}.tar.gz
-            nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar
+            nacos-datasource-plugin-ext/nacos-${{ matrix.database }}-datasource-plugin-ext/target/nacos-${{ matrix.database }}-datasource-plugin-ext*.jar

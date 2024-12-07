@@ -1,11 +1,11 @@
 /*
- * Copyright 1999-2022 Alibaba Group Holding Ltd.
+ * Copyright 2024-2024 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.dm;
+package com.alibaba.nacos.plugin.datasource.impl.mssql;
 
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
-import com.alibaba.nacos.plugin.datasource.constants.PrimaryKeyConstant;
-import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoAggrMapper;
+import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoGrayMapper;
 
 /**
- * The dameng implementation of ConfigInfoAggrMapper.
+ * <p>
  *
- * @author Xiao Yong
- **/
-
-public class ConfigInfoAggrMapperByDaMeng extends BaseConfigInfoAggrMapper {
+ * </p>
+ *
+ * @author fuhouyu
+ * @since 2024/12/7 12:14
+ */
+public class ConfigInfoGrayMapperByMssql extends BaseConfigInfoGrayMapper {
 
     @Override
     public String getDataSource() {
-        return DatabaseTypeConstant.DM;
-    }
-
-    @Override
-    public String[] getPrimaryKeyGeneratedKeys() {
-        return PrimaryKeyConstant.UPPER_RETURN_PRIMARY_KEYS;
+        return DatabaseTypeConstant.KINGBASE;
     }
 }

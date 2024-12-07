@@ -37,20 +37,10 @@ import java.util.List;
  *
  * @author Long Yu
  **/
-public class BaseConfigInfoMapper extends ConfigInfoMapperByMySql {
-
-    private DatabaseDialect databaseDialect;
-
-    public BaseConfigInfoMapper() {
-        databaseDialect = DatabaseDialectManager.getInstance().getDialect(getDataSource());
-    }
-
-    public String getLimitPageSqlWithOffset(String sql, int startOffset, int pageSize) {
-        return databaseDialect.getLimitPageSqlWithOffset(sql, startOffset, pageSize);
-    }
+public class BaseConfigInfoMapper extends ConfigInfoMapperByMySql implements BaseDatasourcePage {
 
     public String getLimitPageSqlWithMark(String sql) {
-        return databaseDialect.getLimitPageSqlWithMark(sql);
+        return getDatabaseDialect().getLimitPageSqlWithMark(sql);
     }
 
     @Override

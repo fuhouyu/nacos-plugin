@@ -30,24 +30,13 @@ import java.util.Collections;
  *
  * @author Long Yu
  **/
-public class BaseConfigInfoTagMapper extends ConfigInfoTagMapperByMySql {
-    
-    private DatabaseDialect databaseDialect;
-    
-    public BaseConfigInfoTagMapper() {
-        databaseDialect = DatabaseDialectManager.getInstance().getDialect(getDataSource());
-    }
-    
-    @Override
-    public String getTableName() {
-        return TableConstant.CONFIG_INFO_TAG;
-    }
-    
+public class BaseConfigInfoTagMapper extends ConfigInfoTagMapperByMySql implements BaseDatasourcePage {
+
     @Override
     public MapperResult findAllConfigInfoTagForDumpAllFetchRows(MapperContext context) {
         int startRow = context.getStartRow();
         int pageSize = context.getPageSize();
-        String innerSql = databaseDialect
+        String innerSql = getDatabaseDialect()
                 .getLimitPageSqlWithOffset("SELECT id FROM config_info_tag  ORDER BY id ", startRow, pageSize);
         String sql = " SELECT t.id,data_id,group_id,tenant_id,tag_id,app_name,content,md5,gmt_modified " + " FROM (  "
                 + innerSql + "  ) " + "g, config_info_tag t  WHERE g.id = t.id  ";

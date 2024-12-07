@@ -31,22 +31,7 @@ import java.util.Collections;
  *
  * @author Long Yu
  **/
-public class BaseConfigInfoBetaMapper extends ConfigInfoBetaMapperByMySql {
-    
-    private DatabaseDialect databaseDialect;
-    
-    public BaseConfigInfoBetaMapper() {
-        databaseDialect = DatabaseDialectManager.getInstance().getDialect(getDataSource());
-    }
-    
-    @Override
-    public String getTableName() {
-        return TableConstant.CONFIG_INFO_BETA;
-    }
-    
-    public String getLimitPageSqlWithOffset(String sql, int startRow, int pageSize) {
-        return databaseDialect.getLimitPageSqlWithOffset(sql, startRow, pageSize);
-    }
+public class BaseConfigInfoBetaMapper extends ConfigInfoBetaMapperByMySql implements BaseDatasourcePage {
     
     @Override
     public MapperResult findAllConfigInfoBetaForDumpAllFetchRows(MapperContext context) {

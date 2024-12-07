@@ -19,23 +19,29 @@ package com.alibaba.nacos.plugin.datasource.impl.base;
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.dialect.DatabaseDialect;
-import com.alibaba.nacos.plugin.datasource.impl.mysql.TenantCapacityMapperByMySql;
+import com.alibaba.nacos.plugin.datasource.impl.mysql.ConfigInfoGrayMapperByMySql;
 import com.alibaba.nacos.plugin.datasource.manager.DatabaseDialectManager;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
 
 /**
- * The base implementation of TenantCapacityMapper.
+ * <p>
+ * gray
+ * </p>
  *
- * @author Long Yu
- **/
-public class BaseTenantCapacityMapper extends TenantCapacityMapperByMySql implements BaseDatasourcePage {
+ * @author fuhouyu
+ * @since 2024/12/7 12:03
+ */
+public class BaseConfigInfoGrayMapper extends ConfigInfoGrayMapperByMySql implements BaseDatasourcePage {
+
 
     @Override
-    public MapperResult getCapacityList4CorrectUsage(MapperContext context) {
-        String sql = getDatabaseDialect().getLimitTopSqlWithMark("SELECT id, tenant_id FROM tenant_capacity WHERE id>?");
-        return new MapperResult(sql, CollectionUtils.list(context.getWhereParameter(FieldConstant.ID),
-                context.getWhereParameter(FieldConstant.LIMIT_SIZE)));
+    public MapperResult findChangeConfig(MapperContext context) {
+        String sql =
+                getDatabaseDialect().getLimitTopSqlWithMark("SELECT id, data_id, group_id, tenant_id, app_name,content,gray_name,gray_rule,md5, gmt_modified, encrypted_data_key "
+                        + "FROM config_info_gray WHERE " + "gmt_modified >= ? and id > ? order by id  ");
+        return new MapperResult(sql, CollectionUtils.list(context.getWhereParameter(FieldConstant.START_TIME),
+                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
+                context.getWhereParameter(FieldConstant.PAGE_SIZE)));
     }
-
 }

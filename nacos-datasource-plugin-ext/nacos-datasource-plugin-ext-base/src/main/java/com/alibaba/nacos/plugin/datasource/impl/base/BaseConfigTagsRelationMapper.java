@@ -34,23 +34,8 @@ import java.util.List;
  *
  * @author Long Yu
  **/
-public class BaseConfigTagsRelationMapper extends ConfigTagsRelationMapperByMySql {
-    
-    private DatabaseDialect databaseDialect;
-    
-    public BaseConfigTagsRelationMapper() {
-        databaseDialect = DatabaseDialectManager.getInstance().getDialect(getDataSource());
-    }
-    
-    public String getLimitPageSqlWithOffset(String sql, int startOffset, int pageSize) {
-        return databaseDialect.getLimitPageSqlWithOffset(sql, startOffset, pageSize);
-    }
-    
-    @Override
-    public String getTableName() {
-        return TableConstant.CONFIG_TAGS_RELATION;
-    }
-    
+public class BaseConfigTagsRelationMapper extends ConfigTagsRelationMapperByMySql implements BaseDatasourcePage {
+
     @Override
     public MapperResult findConfigInfo4PageFetchRows(MapperContext context) {
         final String tenant = (String) context.getWhereParameter(FieldConstant.TENANT_ID);

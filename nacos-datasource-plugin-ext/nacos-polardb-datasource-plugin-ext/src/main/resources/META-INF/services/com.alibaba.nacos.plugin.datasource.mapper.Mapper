@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-com.alibaba.nacos.plugin.datasource.impl.polardb.ConfigInfoAggrMapperByPolardb
+com.alibaba.nacos.plugin.datasource.impl.polardb.ConfigInfoGrayMapperByPolardb
 com.alibaba.nacos.plugin.datasource.impl.polardb.ConfigInfoBetaMapperByPolardb
 com.alibaba.nacos.plugin.datasource.impl.polardb.ConfigInfoMapperByPolardb
 com.alibaba.nacos.plugin.datasource.impl.polardb.ConfigInfoTagMapperByPolardb

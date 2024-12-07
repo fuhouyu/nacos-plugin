@@ -29,17 +29,11 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
  *
  * @author Long Yu
  **/
-public class BaseGroupCapacityMapper extends GroupCapacityMapperByMysql {
-    
-    private DatabaseDialect databaseDialect;
-    
-    public BaseGroupCapacityMapper() {
-        databaseDialect = DatabaseDialectManager.getInstance().getDialect(getDataSource());
-    }
-    
+public class BaseGroupCapacityMapper extends GroupCapacityMapperByMysql implements BaseDatasourcePage {
+
     @Override
     public MapperResult selectGroupInfoBySize(MapperContext context) {
-        String sql = databaseDialect.getLimitTopSqlWithMark("SELECT id, group_id FROM group_capacity WHERE id > ?");
+        String sql = getDatabaseDialect().getLimitTopSqlWithMark("SELECT id, group_id FROM group_capacity WHERE id > ?");
         return new MapperResult(sql,
                 CollectionUtils.list(context.getWhereParameter(FieldConstant.ID), context.getPageSize()));
     }

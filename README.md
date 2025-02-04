@@ -5,7 +5,7 @@ A collection of Nacos plug-ins that provide pluggable plug-in capabilities for N
 # 简介
 该仓库从[nacos-plugin](https://github.com/nacos-group/nacos-plugin) fork，主要为了处理数据源的适配。
 ### 版本
-2.5.0-BETA
+2.5.0
 Nacos新增了灰度发布，postgresql引擎的增量脚本
 ```postgresql
 alter table his_config_info
@@ -114,7 +114,7 @@ docker run -it --name nacos-quick \
 -p 8848:8848 \
 -p 9848:9848 \
 -p 9999:9999 \
--d fuhouyu/nacos-server:2.5.0-BETA-postgresql
+-d fuhouyu/nacos-server:2.5.0-postgresql
 ```
 ##### docker-compose
 ```yaml
@@ -225,7 +225,7 @@ spec:
       containers:
         - name: nacos
           imagePullPolicy: Always
-          image: fuhouyu/nacos-server-multiple-datasource:2.5.0-BETA-postgresql
+          image: fuhouyu/nacos-server-multiple-datasource:2.5.0-postgresql
           # 根据需要修改
           resources:
             requests:
@@ -287,7 +287,7 @@ spec:
 ```shell
 mvn clean install -DskipTests
 export DATASOURCE_TYPE=postgresql
-export TAG=test:0.0.1
+export TAG=test:2.5.0
 docker buildx build  --platform linux/amd64,linux/arm64 --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f build/datasource/datasource-plugin-ext.Dockerfile . --push
 ```
 

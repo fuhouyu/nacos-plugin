@@ -20,6 +20,7 @@ import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.common.utils.NamespaceUtil;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.enums.TrustedOracleFunctionEnum;
+import com.alibaba.nacos.plugin.datasource.impl.base.BaseTenantCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
@@ -30,17 +31,8 @@ import java.util.List;
 /***
  * @author onewe
  */
-public class TenantCapacityMapperByOracle extends AbstractOracleMapper
-        implements TenantCapacityMapper {
+public class TenantCapacityMapperByOracle extends BaseTenantCapacityMapper {
 
-    @Override
-    public MapperResult getCapacityList4CorrectUsage(MapperContext context) {
-        String sql = getDatabaseDialect().getLimitTopSqlWithMark(
-                "SELECT id, tenant_id FROM tenant_capacity WHERE id>?");
-        return new MapperResult(sql,
-                CollectionUtils.list(context.getWhereParameter(FieldConstant.ID),
-                        context.getWhereParameter(FieldConstant.LIMIT_SIZE)));
-    }
 
     @Override
     public MapperResult incrementUsageWithDefaultQuotaLimit(MapperContext context) {

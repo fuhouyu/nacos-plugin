@@ -32,7 +32,7 @@ public class ConfigInfoGrayMapperByPolardb extends BaseConfigInfoGrayMapper {
 
     @Override
     public String getDataSource() {
-        return DatabaseTypeConstant.KINGBASE;
+        return DatabaseTypeConstant.POLARDB;
     }
 
     @Override

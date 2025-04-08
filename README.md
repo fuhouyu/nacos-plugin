@@ -17,7 +17,7 @@ docker run -it --name nacos-quick \
 -e NACOS_AUTH_IDENTITY_KEY="d90ee0d2ef5e452f80c00514c7f30c3e" \
 -e NACOS_AUTH_IDENTITY_VALUE="4a7397d7085945d3adcdcaec264abf90" \
 -e NACOS_AUTH_TOKEN="N2YyYWZiODJkNWE1NDllNzljODNjYmQ5ZDBlODE3M2Q=" \
--e SPRING_DATASOURCE_PLATFORM="postgres" \
+-e SPRING_DATASOURCE_PLATFORM="postgresql" \
 -e DB_URL="jdbc:postgresql://${ip}:${port}/${database}" \
 -e DB_USER="${database_username}" \
 -e DB_PASSWORD="${database_password}" \
@@ -62,7 +62,7 @@ metadata:
   name: nacos-nodeport
   namespace: default
   labels:
-    app: nacos-headless
+    app: nacos-nodeport
 spec:
   type: NodePort
   # 根据需要暴露port
@@ -112,7 +112,7 @@ metadata:
   namespace: default
 data:
   # 这里修改jdbc数据源配置
-  db.url: "jdbc:postgresql://ip/port"
+  db.url: "jdbc:postgresql://ip:port/nacos"
   db.username: "nacos"
   db.password: "nacos"
   db.driver.name: "org.postgresql.Driver"
@@ -124,7 +124,7 @@ metadata:
   name: nacos
   namespace: default
 spec:
-  serviceName: nacos-headless
+  serviceName: nacos
   # Nacos 集群，默认3节点
   replicas: 3
   template:

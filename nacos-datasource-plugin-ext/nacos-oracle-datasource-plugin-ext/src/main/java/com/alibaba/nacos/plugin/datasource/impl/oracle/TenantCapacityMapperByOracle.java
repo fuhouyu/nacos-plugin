@@ -20,6 +20,7 @@ import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.common.utils.NamespaceUtil;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.enums.TrustedOracleFunctionEnum;
+import com.alibaba.nacos.plugin.datasource.impl.base.BaseTenantCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
@@ -30,8 +31,7 @@ import java.util.List;
 /***
  * @author onewe
  */
-public class TenantCapacityMapperByOracle extends AbstractOracleMapper
-        implements TenantCapacityMapper {
+public class TenantCapacityMapperByOracle extends BaseTenantCapacityMapper {
 
     @Override
     public MapperResult getCapacityList4CorrectUsage(MapperContext context) {

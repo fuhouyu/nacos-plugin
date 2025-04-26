@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        database: [ oracle,mssql,dm,postgresql,kingbase, polardb ]
-        java: [ 8 ]
+        database: [ oracle,mssql,dm,postgresql,kingbase,polardb ]
+        java: [ 17 ]
     steps:
       - name: Get version
         id: get_version

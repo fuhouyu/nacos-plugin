@@ -5,7 +5,8 @@ A collection of Nacos plug-ins that provide pluggable plug-in capabilities for N
 # 简介
 该仓库从[nacos-plugin](https://github.com/nacos-group/nacos-plugin) fork，主要为了处理数据源的适配。
 ### 版本
-3.0.0-ALPHA 
+2.5.1
+
 ### 镜像地址
 已构建好的docker镜像：[nacos-server-multiple-datasource](https://hub.docker.com/r/fuhouyu/nacos-server)
 #### 部署方式
@@ -16,7 +17,7 @@ docker run -it --name nacos-quick \
 -e NACOS_AUTH_IDENTITY_KEY="d90ee0d2ef5e452f80c00514c7f30c3e" \
 -e NACOS_AUTH_IDENTITY_VALUE="4a7397d7085945d3adcdcaec264abf90" \
 -e NACOS_AUTH_TOKEN="N2YyYWZiODJkNWE1NDllNzljODNjYmQ5ZDBlODE3M2Q=" \
--e SPRING_DATASOURCE_PLATFORM="postgres" \
+-e SPRING_DATASOURCE_PLATFORM="postgresql" \
 -e DB_URL="jdbc:postgresql://${ip}:${port}/${database}" \
 -e DB_USER="${database_username}" \
 -e DB_PASSWORD="${database_password}" \
@@ -38,7 +39,6 @@ services:
       NACOS_AUTH_IDENTITY_VALUE: "4a7397d7085945d3adcdcaec264abf90"
       NACOS_AUTH_TOKEN: "N2YyYWZiODJkNWE1NDllNzljODNjYmQ5ZDBlODE3M2Q="
       SPRING_DATASOURCE_PLATFORM: postgresql
-			# 修改数据库连接信息
       DB_URL: "jdbc:postgresql://${ip}:${port}/${database}"
       DB_USER: ${database_username}
       DB_PASSWORD: ${database_password}
@@ -53,6 +53,7 @@ services:
       replicas: 1
 ```
 ##### kubernetes
+
 ```yaml
 # 提供外部使用
 apiVersion: v1
@@ -61,7 +62,7 @@ metadata:
   name: nacos-nodeport
   namespace: default
   labels:
-    app: nacos-headless
+    app: nacos-nodeport
 spec:
   type: NodePort
   # 根据需要暴露port
@@ -101,7 +102,6 @@ spec:
     - port: 7848
       name: raft-rpc
       targetPort: 7848
-  clusterIP: None
   selector:
     app: nacos
 ---
@@ -111,8 +111,8 @@ metadata:
   name: nacos-cm
   namespace: default
 data:
-# 这里修改jdbc数据源配置
-  db.url: "jdbc:postgresql://ip/port"
+  # 这里修改jdbc数据源配置
+  db.url: "jdbc:postgresql://ip:port/nacos"
   db.username: "nacos"
   db.password: "nacos"
   db.driver.name: "org.postgresql.Driver"
@@ -124,7 +124,7 @@ metadata:
   name: nacos
   namespace: default
 spec:
-  serviceName: nacos-headless
+  serviceName: nacos
   # Nacos 集群，默认3节点
   replicas: 3
   template:
@@ -137,7 +137,7 @@ spec:
       containers:
         - name: nacos
           imagePullPolicy: Always
-          image: fuhouyu/nacos-server-multiple-datasource:2.4.2-postgresql
+          image: fuhouyu/nacos-server-multiple-datasource:3.0.0-ALPHA-postgresql
           # 根据需要修改
           resources:
             requests:
@@ -147,7 +147,7 @@ spec:
               memory: "2048Mi"
               cpu: "1024m"
           env:
-          # Nacos 副本数
+            # Nacos 副本数
             - name: NACOS_REPLICAS
               value: "3"
             - name: DB_URL
@@ -179,14 +179,14 @@ spec:
             - name: nacos.naming.data.warmup
               value: "false"
             - name: NACOS_SERVERS
-              value: "nacos-0.nacos-headless.default.svc.cluster.local:8848,nacos-1.nacos-headless.default.svc.cluster.local:8848,nacos-2.nacos-headless.default.svc.cluster.local:8848" 
+              value: "nacos-0.nacos-headless.default.svc.cluster.local:8848,nacos-1.nacos-headless.default.svc.cluster.local:8848,nacos-2.nacos-headless.default.svc.cluster.local:8848"
             - name: NACOS_AUTH_TOKEN
               value: NkQzNUUwMjlCOTdGNDk4Mjg2QTJEN0E4RDYzM0EyMzE=
             - name: NACOS_AUTH_IDENTITY_KEY
               value: AE84C5193B6C44728C76AEB73D1A3037
             - name: NACOS_AUTH_IDENTITY_VALUE
               value: D3D2F9F96E58435E802FC34017722057
-            - name: SPRING_DATASOURCE_PLATFORM  
+            - name: SPRING_DATASOURCE_PLATFORM
               value: "postgresql"
             - name: NACOS_AUTH_ENABLE
               value: "true"
@@ -199,7 +199,7 @@ spec:
 ```shell
 mvn clean install -DskipTests
 export DATASOURCE_TYPE=postgresql
-export TAG=test:0.0.1
+export TAG=3.0.0-ALPHA-postgresql
 docker buildx build  --platform linux/amd64,linux/arm64 --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f build/datasource/datasource-plugin-ext.Dockerfile . --push
 ```
 

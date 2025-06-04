@@ -112,18 +112,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: nacos-server-${{ matrix.database }}
-          path: ./
+          path:  downloaded-artifacts
       - name: Prepare release files
         run: |
           mkdir release-files
-          find ./ -type f -exec cp {} release-files \;
+          find  downloaded-artifacts -type f -exec cp {} release-files \;
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           name: Nacos Datasource Plugin v${{ steps.get_version.outputs.NACOS_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          draft: false
+          draft: true
           prerelease: false
+          update: true
           body: "Nacos Server with multiple database support"
           files: |
             release-files/*

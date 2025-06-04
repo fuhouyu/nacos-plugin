@@ -23,5 +23,6 @@ com.alibaba.nacos.plugin.datasource.impl.postgresql.HistoryConfigInfoMapperByPos
 com.alibaba.nacos.plugin.datasource.impl.postgresql.TenantInfoMapperByPostgresql
 com.alibaba.nacos.plugin.datasource.impl.postgresql.TenantCapacityMapperByPostgresql
 com.alibaba.nacos.plugin.datasource.impl.postgresql.GroupCapacityMapperByPostgresql
+com.alibaba.nacos.plugin.datasource.impl.postgresql.ConfigMigrateMapperByPostgresql
 
 

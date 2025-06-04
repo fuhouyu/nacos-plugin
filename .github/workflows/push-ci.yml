@@ -114,6 +114,10 @@ jobs:
         with:
           name: nacos-server-${{ matrix.database }}
           path: ./
+      - name: Prepare release files
+        run: |
+          mkdir release-files
+          find ./ -type f -exec cp {} release-files \;
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:

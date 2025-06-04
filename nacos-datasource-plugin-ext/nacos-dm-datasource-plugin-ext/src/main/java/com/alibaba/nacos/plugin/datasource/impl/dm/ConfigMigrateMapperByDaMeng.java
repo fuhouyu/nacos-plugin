@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.alibaba.nacos.plugin.datasource.impl.polardb;
+package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
-import com.alibaba.nacos.plugin.datasource.enums.TrustedPolardbFunctionEnum;
+<<<<<<<< HEAD:nacos-datasource-plugin-ext/nacos-dm-datasource-plugin-ext/src/main/java/com/alibaba/nacos/plugin/datasource/impl/dm/ConfigInfoGrayMapperByDaMeng.java
 import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoGrayMapper;
 
 /**
@@ -28,15 +28,20 @@ import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoGrayMapper;
  * @author fuhouyu
  * @since 2024/12/7 12:14
  */
-public class ConfigInfoGrayMapperByPolardb extends BaseConfigInfoGrayMapper {
+public class ConfigInfoGrayMapperByDaMeng extends BaseConfigInfoGrayMapper {
+========
+import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigMigrateMapper;
+
+/**
+ * The type Config migrate mapper by postgresql.
+ *
+ * @author fuhouyu
+ */
+public class ConfigMigrateMapperByDaMeng extends BaseConfigMigrateMapper {
+>>>>>>>> v3.0-develop:nacos-datasource-plugin-ext/nacos-dm-datasource-plugin-ext/src/main/java/com/alibaba/nacos/plugin/datasource/impl/dm/ConfigMigrateMapperByDaMeng.java
 
     @Override
     public String getDataSource() {
-        return DatabaseTypeConstant.KINGBASE;
-    }
-
-    @Override
-    public String getFunction(String functionName) {
-        return TrustedPolardbFunctionEnum.getFunctionByName(functionName);
+        return DatabaseTypeConstant.DM;
     }
 }

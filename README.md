@@ -2,10 +2,16 @@
 A collection of Nacos plug-ins that provide pluggable plug-in capabilities for Nacos and support user customization and high scalability
 
 ---
+
 # 简介
 该仓库从[nacos-plugin](https://github.com/nacos-group/nacos-plugin) fork，主要为了处理数据源的适配。
+### 说明
+3.x 增加nacos.console.ui.enabled,对应环境变量为NACOS_CONSOLE_UI_ENABLED，默认为true，启用控制台
+
+NACOS_CONSOLE_PORT:控制台端口，默认8080
+
 ### 版本
-2.5.1
+3.0.1
 
 ### 镜像地址
 已构建好的docker镜像：[nacos-server-multiple-datasource](https://hub.docker.com/r/fuhouyu/nacos-server)
@@ -25,8 +31,8 @@ docker run -it --name nacos-quick \
 -e DRIVER_CLASS_NAME="org.postgresql.Driver" \
 -p 8848:8848 \
 -p 9848:9848 \
--p 9999:9999 \
--d fuhouyu/nacos-server:2.5.1-postgresql
+-p 8080:8080 \
+-d fuhouyu/nacos-server:3.0.1-postgresql
 ```
 ##### docker-compose
 ```yaml
@@ -47,7 +53,7 @@ services:
     ports:
       - "8848:8848"
       - "9848:9848"
-      - "9999:9999"
+      - "8080:8080"
     deploy:
       mode: replicated
       replicas: 1
@@ -75,6 +81,10 @@ spec:
       name: client-rpc
       targetPort: 9848
       nodePort: 31048
+    - port: 8080
+      name: console-port
+      targetPort: 9848
+      nodePort: 38080
   selector:
     app: nacos
 ---
@@ -137,7 +147,7 @@ spec:
       containers:
         - name: nacos
           imagePullPolicy: Always
-          image: fuhouyu/nacos-server-multiple-datasource:2.5.1-postgresql
+          image: fuhouyu/nacos-server:3.0.1-postgresql
           # 根据需要修改
           resources:
             requests:
@@ -197,10 +207,11 @@ spec:
 ### 构建方式
 自dockerfile中进行构建：
 ```shell
-mvn clean install -DskipTests
+mvn clean package -DskipTests
 export DATASOURCE_TYPE=postgresql
-export TAG=test:2.5.1
-docker buildx build  --platform linux/amd64,linux/arm64 --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f build/datasource/datasource-plugin-ext.Dockerfile . --push
+export NACOS_VERSION=3.0.1
+export TAG=${NACOS_VERSION}-postgresql
+docker buildx build  --platform linux/amd64,linux/arm64 --build-arg NACOS_VERSION=${NACOS_VERSION} --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f build/datasource/datasource-plugin-ext.Dockerfile . --push
 ```
 
 

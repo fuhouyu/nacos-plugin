@@ -23,5 +23,6 @@ com.alibaba.nacos.plugin.datasource.impl.dm.HistoryConfigInfoMapperByDaMeng
 com.alibaba.nacos.plugin.datasource.impl.dm.TenantInfoMapperByDaMeng
 com.alibaba.nacos.plugin.datasource.impl.dm.TenantCapacityMapperByDaMeng
 com.alibaba.nacos.plugin.datasource.impl.dm.GroupCapacityMapperByDaMeng
+com.alibaba.nacos.plugin.datasource.impl.dm.ConfigMigrateMapperByDaMeng
 
 

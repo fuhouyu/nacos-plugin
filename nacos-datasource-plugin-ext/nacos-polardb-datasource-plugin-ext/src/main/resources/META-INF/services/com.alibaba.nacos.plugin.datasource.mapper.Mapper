@@ -23,5 +23,6 @@ com.alibaba.nacos.plugin.datasource.impl.polardb.HistoryConfigInfoMapperByPolard
 com.alibaba.nacos.plugin.datasource.impl.polardb.TenantInfoMapperByPolardb
 com.alibaba.nacos.plugin.datasource.impl.polardb.TenantCapacityMapperByPolardb
 com.alibaba.nacos.plugin.datasource.impl.polardb.GroupCapacityMapperByPolardb
+com.alibaba.nacos.plugin.datasource.impl.polardb.ConfigMigrateMapperByPolardb
 
 

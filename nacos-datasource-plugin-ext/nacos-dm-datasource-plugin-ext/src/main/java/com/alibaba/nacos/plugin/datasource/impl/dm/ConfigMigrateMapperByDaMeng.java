@@ -17,19 +17,6 @@
 package com.alibaba.nacos.plugin.datasource.impl.dm;
 
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
-<<<<<<<< HEAD:nacos-datasource-plugin-ext/nacos-dm-datasource-plugin-ext/src/main/java/com/alibaba/nacos/plugin/datasource/impl/dm/ConfigInfoGrayMapperByDaMeng.java
-import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigInfoGrayMapper;
-
-/**
- * <p>
- *
- * </p>
- *
- * @author fuhouyu
- * @since 2024/12/7 12:14
- */
-public class ConfigInfoGrayMapperByDaMeng extends BaseConfigInfoGrayMapper {
-========
 import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigMigrateMapper;
 
 /**
@@ -38,7 +25,6 @@ import com.alibaba.nacos.plugin.datasource.impl.base.BaseConfigMigrateMapper;
  * @author fuhouyu
  */
 public class ConfigMigrateMapperByDaMeng extends BaseConfigMigrateMapper {
->>>>>>>> v3.0-develop:nacos-datasource-plugin-ext/nacos-dm-datasource-plugin-ext/src/main/java/com/alibaba/nacos/plugin/datasource/impl/dm/ConfigMigrateMapperByDaMeng.java
 
     @Override
     public String getDataSource() {

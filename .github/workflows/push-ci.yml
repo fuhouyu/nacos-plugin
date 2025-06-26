@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        database: [ oracle,mssql,dm,postgresql,kingbase,polardb ]
+        database: [ oracle,mssql,dm,postgresql ]
     steps:
       - name: Get version
         id: get_version
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        database: [ oracle,mssql,dm,postgresql,kingbase,polardb ]
+        database: [ oracle,mssql,dm,postgresql ]
     steps:
       - name: Get version
         id: get_version

@@ -18,8 +18,6 @@
         <module>nacos-oracle-datasource-plugin-ext</module>
         <module>nacos-dm-datasource-plugin-ext</module>
         <module>nacos-mssql-datasource-plugin-ext</module>
-        <module>nacos-kingbase-datasource-plugin-ext</module>
-        <module>nacos-polardb-datasource-plugin-ext</module>
     </modules>
 
     <properties>

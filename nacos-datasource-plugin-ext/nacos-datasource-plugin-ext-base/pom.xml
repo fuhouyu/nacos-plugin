@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>com.alibaba.nacos</groupId>
     <artifactId>nacos-datasource-plugin-ext-base</artifactId>
     
     <properties>

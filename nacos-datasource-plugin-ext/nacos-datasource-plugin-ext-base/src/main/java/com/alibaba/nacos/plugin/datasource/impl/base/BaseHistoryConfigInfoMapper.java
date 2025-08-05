@@ -36,7 +36,7 @@ public class BaseHistoryConfigInfoMapper extends HistoryConfigInfoMapperByMySql 
     public MapperResult pageFindConfigHistoryFetchRows(MapperContext context) {
         String sql =
                 getDatabaseDialect().getLimitPageSqlWithOffset(
-                        "SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,ext_info,publish_type,gmt_create,gmt_modified "
+                        "SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,ext_info,publish_type,gray_name,gmt_create,gmt_modified "
                                 + "FROM his_config_info " + "WHERE data_id = ? AND group_id = ? AND tenant_id = ? ORDER BY nid DESC  "
                         , context.getStartRow(), context.getPageSize());
         return new MapperResult(sql, CollectionUtils.list(context.getWhereParameter(FieldConstant.DATA_ID),

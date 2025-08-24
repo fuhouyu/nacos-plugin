@@ -12,7 +12,7 @@ A collection of Nacos plug-ins that provide pluggable plug-in capabilities for N
 NACOS_CONSOLE_PORT:控制台端口，默认8080
 
 ### 版本
-3.0.2
+3.0.3
 
 ### 镜像地址
 已构建好的docker镜像：[nacos-server-multiple-datasource](https://hub.docker.com/r/fuhouyu/nacos-server)
@@ -33,7 +33,7 @@ docker run -it --name nacos-quick \
 -p 8848:8848 \
 -p 9848:9848 \
 -p 8080:8080 \
--d fuhouyu/nacos-server:3.0.2-postgresql
+-d fuhouyu/nacos-server:3.0.3-postgresql
 ```
 ##### docker-compose
 ```yaml
@@ -148,7 +148,7 @@ spec:
       containers:
         - name: nacos
           imagePullPolicy: Always
-          image: fuhouyu/nacos-server:3.0.2-postgresql
+          image: fuhouyu/nacos-server:3.0.3-postgresql
           # 根据需要修改
           resources:
             requests:
@@ -210,7 +210,7 @@ spec:
 ```shell
 mvn clean package -DskipTests
 export DATASOURCE_TYPE=postgresql
-export NACOS_VERSION=3.0.2
+export NACOS_VERSION=3.0.3
 export TAG=${NACOS_VERSION}-postgresql
 docker buildx build  --platform linux/amd64,linux/arm64 --build-arg NACOS_VERSION=${NACOS_VERSION} --build-arg DATASOURCE_PLUGIN=nacos-${DATASOURCE_TYPE}-datasource-plugin-ext -t ${TAG} -f build/datasource/datasource-plugin-ext.Dockerfile . --push
 ```
